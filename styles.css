@@ -616,7 +616,12 @@ section { padding: 80px 0; }
 }
 .cta-section .review-link,
 .cta .review-link {
-    margin-top: 12px;
+    display: flex;
+    margin-top: 24px;
+    justify-content: center;
+}
+.hero-meta .review-link {
+    display: flex;
     justify-content: center;
 }
 
