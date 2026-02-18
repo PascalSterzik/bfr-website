@@ -433,8 +433,8 @@ section { padding: 80px 0; }
     position: relative;
 }
 .media-bar .container {
-    max-width: 100%;
-    padding: 0;
+    max-width: 1200px;
+    padding: 0 20px;
 }
 .media-bar-label {
     font-family: 'Oswald', sans-serif;
@@ -478,7 +478,7 @@ section { padding: 80px 0; }
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 100px;
+    width: 15%;
     z-index: 2;
     pointer-events: none;
 }
@@ -619,6 +619,9 @@ section { padding: 80px 0; }
     display: flex;
     margin-top: 24px;
     justify-content: center;
+}
+.hero-meta {
+    margin-top: 24px;
 }
 .hero-meta .review-link {
     display: flex;
