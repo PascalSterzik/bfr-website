@@ -361,26 +361,80 @@ section { padding: 80px 0; }
     transform: translateY(-3px);
 }
 
-/* Stars */
+/* Stars — accurate partial fill */
+.stars-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+.stars-rating .star {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    display: inline-block;
+}
+.stars-rating .star svg {
+    width: 100%;
+    height: 100%;
+}
+.stars-rating.stars-lg .star {
+    width: 20px;
+    height: 20px;
+}
+/* Review link (stars + text) */
+.review-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: var(--transition);
+}
+.review-link:hover {
+    opacity: 0.8;
+}
+.review-link-text {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.6);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    transition: var(--transition);
+}
+.review-link:hover .review-link-text {
+    color: rgba(255,255,255,0.85);
+    border-bottom-color: rgba(255,255,255,0.5);
+}
+/* Dark bg variant (for CTA sections) */
+.cta-section .review-link-text {
+    color: rgba(255,255,255,0.6);
+}
+/* Light bg variant */
+.review-link--dark .review-link-text {
+    color: var(--text-muted);
+    border-bottom-color: rgba(0,0,0,0.15);
+}
+.review-link--dark:hover .review-link-text {
+    color: var(--text-color);
+    border-bottom-color: rgba(0,0,0,0.3);
+}
+
+/* Legacy .stars class (keep for compatibility) */
 .stars {
     color: var(--gold);
     font-size: 1.1rem;
     letter-spacing: 2px;
 }
 
-/* Media Logo Bar */
+/* Media Logo Bar — Infinite Marquee */
 .media-bar {
     padding: 30px 0;
     background: var(--light-bg);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
 }
-.media-bar-inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
+.media-bar .container {
+    max-width: 100%;
+    padding: 0;
 }
 .media-bar-label {
     font-family: 'Oswald', sans-serif;
@@ -389,17 +443,56 @@ section { padding: 80px 0; }
     letter-spacing: 0.12em;
     color: var(--text-muted);
     white-space: nowrap;
+    text-align: center;
+    display: block;
+    margin-bottom: 16px;
+    padding: 0 20px;
 }
-.media-bar img {
+.media-bar-track {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    animation: marquee 30s linear infinite;
+    width: max-content;
+}
+.media-bar-track img {
     height: 28px;
     width: auto;
     opacity: 0.55;
     filter: grayscale(100%);
-    transition: var(--transition);
+    transition: opacity 0.3s, filter 0.3s;
+    flex-shrink: 0;
 }
-.media-bar img:hover {
+.media-bar-track img:hover {
     opacity: 1;
     filter: none;
+}
+/* Fade edges */
+.media-bar-scroll {
+    position: relative;
+    overflow: hidden;
+}
+.media-bar-scroll::before,
+.media-bar-scroll::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 2;
+    pointer-events: none;
+}
+.media-bar-scroll::before {
+    left: 0;
+    background: linear-gradient(to right, var(--light-bg), transparent);
+}
+.media-bar-scroll::after {
+    right: 0;
+    background: linear-gradient(to left, var(--light-bg), transparent);
+}
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 /* Stats bar */
@@ -520,6 +613,11 @@ section { padding: 80px 0; }
 }
 .cta-section .stars {
     margin-bottom: 12px;
+}
+.cta-section .review-link,
+.cta .review-link {
+    margin-top: 12px;
+    justify-content: center;
 }
 
 /* Page Hero (inner pages) */
@@ -850,6 +948,7 @@ section { padding: 80px 0; }
     justify-content: center;
 }
 .hero-meta .stars { font-size: 0.95rem; }
+.hero-meta .review-link { gap: 8px; }
 .hero-meta span {
     font-size: 0.9rem;
     color: rgba(255,255,255,0.6);
@@ -1244,8 +1343,8 @@ section { padding: 80px 0; }
     .hero { padding: 120px 0 60px; min-height: auto; }
     .hero h1 { font-size: 2rem; }
     .services-overview-grid { grid-template-columns: 1fr; }
-    .media-bar-inner { gap: 24px; }
-    .media-bar img { height: 22px; }
+    .media-bar-track { gap: 30px; }
+    .media-bar-track img { height: 22px; }
     .workshop-grid { grid-template-columns: repeat(2, 1fr); }
     .contact-grid { grid-template-columns: 1fr; }
     .curriculum-header-left { gap: 12px; }
